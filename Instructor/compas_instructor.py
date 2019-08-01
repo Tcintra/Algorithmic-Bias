@@ -34,6 +34,9 @@ def main():
     # Read Compas.csv onto df
     df = pd.read_csv(os.path.join(path, 'Compas.csv'))
 
+    # Call pie(df, column)
+    pie(df, 'Race')
+
     # Plot threat score comparison
     threat_scores_dists(df, 'Race', 'African-American', 'Caucasian')
 
@@ -53,6 +56,60 @@ def main():
     opThresh(metric2_FNR, column = 'Gender', var = 'Female')
     opThresh(metric3_F1, column = 'Gender', var = 'Female')
     opThresh(metric4_auc_roc, column = 'Gender', var = 'Female')
+
+def pie(df, column):
+    """
+    pie(...) generates a pie chart for the distribution of unique values of column in df.
+
+    Parameters
+    ----------
+    df : DataFrame
+    column : column in df
+
+    Returns
+    -------
+    Nothing
+    """
+    ### ========== TODO : QUESTION 1 ========== ###
+
+    # Sets the dimensions for your plot.
+    plt.figure(figsize=(5,5))
+
+    # Create an array of data and assign it to a variable such as x, which will serve as the data for your pie chart.
+    x = df[column].value_counts() / len(df)
+
+    # Assign your pie chart to ax. Remember we are using matplotlib's pie function. 
+    ax  = plt.pie(x, labels = list(x.keys()))
+
+    # Title your plot using plt.title.
+    plt.title('Pie Chart for ' + column)
+
+    ### ========== TODO : END ========== ###
+    plt.show()
+
+def class_imbalance(df, column = None, var = None):
+    """
+    class_imbalance(...) prints a Pandas series detailing the proportion of individuals who reoffended and who didn't.
+    If column and var are provided, class_imbalance(...) only considers individuals with the feature var in column.
+
+    Parameters
+    ----------
+    df : DataFrame
+
+    Returns
+    -------
+    Nothing
+    """
+    if column:
+        print('Imbalance in Testing Set for ' + var + 's:')
+        pop = df.loc[df[column] == var]
+        print(pop['Recidivism'].value_counts() / len(pop))
+
+    else: 
+        print('Imbalance in Testing Set:')
+        print(df['Recidivism'].value_counts() / len(df))
+
+    return
     
 
 def threat_scores_dists(df, column, var1, var2):
@@ -167,30 +224,6 @@ def confMatrix(df,low, high, column = None, var = None, metric = None):
     print('Labelled High Risk But Didn\'t Reoffend: ', FP/(TN + FP))
     print('Labelled Low Risk But Did Reoffend: ', FN/(TP + FN))
     print("Number of", var, "people surveyed:", len(pop))
-    return
-
-def class_imbalance(df, column = None, var = None):
-    """
-    class_imbalance(...) prints a Pandas series detailing the proportion of individuals who reoffended and who didn't.
-    If column and var are provided, class_imbalance(...) only considers individuals with the feature var in column.
-
-    Parameters
-    ----------
-    df : DataFrame
-
-    Returns
-    -------
-    Nothing
-    """
-    if column:
-        print('Imbalance in Testing Set for ' + var + 's:')
-        pop = df.loc[df[column] == var]
-        print(pop['Recidivism'].value_counts() / len(pop))
-
-    else: 
-        print('Imbalance in Testing Set:')
-        print(df['Recidivism'].value_counts() / len(df))
-
     return
 
 def metric1_FPR(low, high, column, var):

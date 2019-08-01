@@ -37,6 +37,9 @@ def main():
 
     ### ========== TODO : QUESTION 1 ========== ###
 
+    # Call class_imbalance(df, column, var)
+
+
     # Call pie(df, column)
 
 
@@ -60,21 +63,45 @@ def main():
 
     print()
 
+
     ### ========== TODO : QUESTION 4 ========== ##
-
-    # Call class_imbalance(df, column, var)
-
-
-    ### ========== TODO : END ========== ###
-
-    print()
-
-    ### ========== TODO : QUESTION 5 ========== ##
 
     # Call opThresh(metric, column, var)
 
 
     ### ========== TODO : END ========== ###
+
+def class_imbalance(df, column = None, var = None):
+    """
+    class_imbalance(...) prints a Pandas series detailing the proportion of individuals who reoffended and who didn't.
+    If column and var are provided, class_imbalance(...) only considers individuals with the feature var in column.
+
+    Parameters
+    ----------
+    df : DataFrame
+    column : column in df
+    var : unique value in column
+
+    Returns
+    -------
+    Nothing
+    """
+    ### ========== TODO : QUESTION 1 ========== ###
+
+    if column:
+        # If column argument is provided, find class imbalance by indexing. Delete pass statement.
+
+
+        pass
+
+    else: 
+        # If column argunent is not provided, find class imabalance for the whole dataset. Delete pass statement.
+        
+        
+        pass
+
+    ### ========== TODO : END ========== ###
+    return
 
 def pie(df, column):
     """
@@ -214,43 +241,14 @@ def confMatrix(df,low, high, column = None, var = None, metric = None):
     if metric:
         return FP/(TN + FP), FN/(TP + FN), f1_score(testData, predData), roc_auc_score(testData, predData)
 
-    ### ========== TODO : END ========== ###
 
-    # Prints all your information
+    # Prints all your information. Remember to edit some of the print statements to include the variables you created
     print('Confusion Matrix For', var,':')
     print(confusion_Matrix) 
-    print('Accuracy Score :',accuracy_score(testData, predData))
+    print('Accuracy Score :',accuracy_score())
     print('Labelled High Risk But Didn\'t Reoffend: ', FP/(TN + FP))
     print('Labelled Low Risk But Did Reoffend: ', FN/(TP + FN))
-    print("Number of", var, "people surveyed:", len(pop))
-    return
-
-def class_imbalance(df, column = None, var = None):
-    """
-    class_imbalance(...) prints a Pandas series detailing the proportion of individuals who reoffended and who didn't.
-    If column and var are provided, class_imbalance(...) only considers individuals with the feature var in column.
-
-    Parameters
-    ----------
-    df : DataFrame
-
-    Returns
-    -------
-    Nothing
-    """
-    ### ========== TODO : QUESTION 4 ========== ###
-
-    if column:
-        # If column argument is provided, find class imbalance by indexing. Delete pass statement.
-
-
-        pass
-
-    else: 
-        # If column argunent is not provided, find class imabalance for the whole dataset. Delete pass statement.
-        
-        
-        pass
+    print("Number of", var, "people surveyed:", )
 
     ### ========== TODO : END ========== ###
     return
